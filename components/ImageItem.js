@@ -4,7 +4,8 @@ import { string } from 'prop-types'
 
 const ImageItem = ({ src, title, author }) => (
   <div>
-    Image
+    <a href={src} alt={title}>{title}</a>
+    {author}
   </div>
 );
 

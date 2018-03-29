@@ -2,11 +2,20 @@ import React from 'react';
 
 import ImageList from '../components/ImageList';
 
-import { getPopularPhotos } from '../api/models/photos';
+import { getRecentPhotos } from '../api/models/photos';
 
 const Index = ({ images }) => (
   <div>
-    <ImageList images={images} />
+    <style jsx>{`
+      #container {
+        width: 800;
+        margin: auto;
+      }
+    `}
+    </style>
+    <div id="container">
+      <ImageList images={images} />
+    </div>
   </div>
 );
 

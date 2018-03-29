@@ -1,27 +1,23 @@
-import { paramsToUrl } from '../url';
+import { makeRequest } from '../flickr';
 
-import { url, key, secret } from '../flickr';
+const makePhotoUrl = ({ id, secret, server, farm }) => `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
 
-import fetch from 'node-fetch';
-
-const makeUrl = (id, secret, serverId, farmId) => `http://farm${farmId}.staticflickr.com/${serverId}/${id}_${secret}.jpg`;
-
-const transformPhoto = ({ id, owner, secret, server, farm, title }) => ({
-  src: makeUrl(id, secret, server, farm),
+const transformPhoto = async ({ id, owner, secret, server, farm, title }) => ({
   title,
-})
+  src: makePhotoUrl({ id, secret, server, farm }),
+  ...(await getPhotoInfo(id)),
+});
 
-export const getPopularPhotos = async () => {
-  const params = paramsToUrl({
-    secret,
-    method: 'flickr.photos.getRecent',
-    api_key: key,
-    nojsoncallback: 1,
-    format: 'json',
-  });
-  const response = await fetch(`${url}?${params}`);
-  const json = await response.json();
+const getPhotoInfo  = async (id) => {
+  const json = await makeRequest('flickr.photos.getInfo', { photo_id: id });
   return {
-    images: json.photos.photo.map(transformPhoto),
+    owner: json.photo.owner,
   }
+}
+
+export const getRecentPhotos = async () => {
+  const json = await makeRequest('flickr.photos.getRecent');
+  const images = await Promise.all(json.photos.photo.map(transformPhoto));
+  console.log(JSON.stringify(json, null, 2))
+  return { images };
 }
