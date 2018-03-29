@@ -6,12 +6,16 @@ import ImageItem from './ImageItem';
 
 const ImageList = ({ images }) => (
   <div>
-    { images.map(({ src, title, author }) => (
-      <ImageItem
-        src={src}
-        title={title}
-        author={author}
-      />
+    <style jsx>{`
+      .image_item {
+        margin-bottom: 15px;
+      }
+    `}
+    </style>
+    { images.map(({ ...props }) => (
+      <div className="image_item">
+        <ImageItem {...props} />
+      </div>
     ))}
   </div>
 );
