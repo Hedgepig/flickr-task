@@ -10,7 +10,7 @@ import ImageTitle from './ImageTitle';
 import Thumb from './Thumb';
 import ImageInfo from './ImageInfo';
 
-const ImageItem = ({ src, title, owner, postedDate }) => (
+const ImageItem = ({ src, title, owner, postedDate, photoPage }) => (
   <div>
     <style jsx>{`
       .thumb {
@@ -26,10 +26,16 @@ const ImageItem = ({ src, title, owner, postedDate }) => (
         <Thumb src={src} title={title} />
       </div>
       <div className="title">
-        <ImageTitle title={title} />
+        <ImageTitle
+          title={title}
+        />
       </div>
       <div className="image_info">
-        <ImageInfo postedDate={postedDate} />
+        <ImageInfo
+          postedDate={postedDate}
+          photoPage={photoPage}
+          owner={owner}
+        />
       </div>
       <div className="links">
       </div>

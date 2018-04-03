@@ -32,4 +32,6 @@ const Index = ({ images }) => (
  */
 Index.getInitialProps = async () => getRecentPhotos();
 
+Index.propTypes = ImageList.propTypes;
+
 export default Index;
