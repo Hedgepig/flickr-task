@@ -24,3 +24,7 @@ export async function makeRequest(method, extraParams={}) {
   const response = await fetch(`${url}?${params}`);
   return response.json();
 }
+
+export function getSourceBySize(sources, size) {
+  return isNil(sources[size]) ? sources.original : sources[size];
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Thumb = ({ src, title }) => (
+import { string, func } from 'prop-types';
+
+const Thumb = ({ src, title, onViewImage }) => (
   <div>
     <style jsx>{`
       .image_container {
@@ -13,8 +15,17 @@ const Thumb = ({ src, title }) => (
       }
     `}
     </style>
-    <div className="image_container" />
+    <div
+      className="image_container"
+      onClick={onViewImage}
+    />
   </div>
 );
+
+Thumb.propTypes = {
+  src: string.isRequired,
+  title: string.isRequired,
+  onViewImage: func.isRequired,
+};
 
 export default Thumb;

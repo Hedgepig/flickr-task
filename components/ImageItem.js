@@ -2,15 +2,42 @@ import React from 'react';
 
 import { string } from 'prop-types'
 
+import { withStateHandlers } from 'recompose';
+
 import {
   Card, CardHeader, CardMedia, CardTitle, CardText
 } from 'material-ui/Card';
 
+import Dialog from 'material-ui/Dialog';
+
 import ImageTitle from './ImageTitle';
 import Thumb from './Thumb';
 import ImageInfo from './ImageInfo';
+import ImageModal from './ImageModal';
 
-const ImageItem = ({ src, title, owner, postedDate, photoPage }) => (
+const withModalState = withStateHandlers(
+  {
+    isModalShown: false,
+  },
+  {
+    openModal: () => () => ({ isModalShown: true }),
+    closeModal: () => () => ({ isModalShown: false }),
+  },
+)
+
+const withApi = withModalState;
+
+const ImageItem = ({
+  sources,
+  title,
+  owner,
+  postedDate,
+  photoPage,
+  toggleModal,
+  isModalShown,
+  openModal,
+  closeModal,
+}) => (
   <div>
     <style jsx>{`
       .thumb {
@@ -21,13 +48,35 @@ const ImageItem = ({ src, title, owner, postedDate, photoPage }) => (
       }*/
     `}
     </style>
+    <Dialog
+      title={title}
+      actions={[]}
+      modal={false}
+      open={isModalShown}
+      onRequestClose={closeModal}
+    >
+      <ImageModal
+        owner={owner}
+        sources={sources}
+        postedDate={postedDate}
+        photoPage={photoPage}
+        test={console.log(photoPage)}
+      />
+    </Dialog>
     <Card>
       <div className="thumb">
-        <Thumb src={src} title={title} />
+        <Thumb
+          src={sources.small}
+          title={title}
+          photoPage={photoPage}
+          onViewImage={openModal}
+        />
       </div>
       <div className="title">
         <ImageTitle
           title={title}
+          src={sources.small}
+          onViewImage={openModal}
         />
       </div>
       <div className="image_info">
@@ -48,6 +97,6 @@ ImageItem.propTypes = {
   src: string.isRequired,
   title: string.isRequired,
   author: string.isRequired,
-}
+};
 
-export default ImageItem;
+export default withApi(ImageItem);
