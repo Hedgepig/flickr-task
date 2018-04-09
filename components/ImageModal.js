@@ -5,7 +5,7 @@ import ImageInfo from './ImageInfo';
 import { getSourceBySize } from '../api/flickr';
 
 const ImageModal = ({ owner, sources, postedDate, photoPage }) => (
-  <div cons={console.log(sources)}>
+  <div>
     <style jsx>{`
       .image_info {
         margin: auto;

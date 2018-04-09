@@ -60,7 +60,6 @@ const ImageItem = ({
         sources={sources}
         postedDate={postedDate}
         photoPage={photoPage}
-        test={console.log(photoPage)}
       />
     </Dialog>
     <Card>
