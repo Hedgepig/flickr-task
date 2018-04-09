@@ -15,6 +15,9 @@ import Thumb from './Thumb';
 import ImageInfo from './ImageInfo';
 import ImageModal from './ImageModal';
 
+/**
+ * higher order component to control modal state.
+ */
 const withModalState = withStateHandlers(
   {
     isModalShown: false,
@@ -24,8 +27,6 @@ const withModalState = withStateHandlers(
     closeModal: () => () => ({ isModalShown: false }),
   },
 )
-
-const withApi = withModalState;
 
 const ImageItem = ({
   sources,
@@ -43,9 +44,6 @@ const ImageItem = ({
       .thumb {
         float: left;
       }
-      /* @media only screen and (min-width: 800px) {
-        
-      }*/
     `}
     </style>
     <Dialog
@@ -98,4 +96,4 @@ ImageItem.propTypes = {
   author: string.isRequired,
 };
 
-export default withApi(ImageItem);
+export default withModalState(ImageItem);

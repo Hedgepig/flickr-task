@@ -10,6 +10,7 @@ import { getRecentPhotos } from '../api/models/photos';
 const Index = ({ images }) => (
   <Layout>
     <div>
+      <h1>Most Recent Images</h1>
       <SearchBar />
       <ImageList images={images} />
     </div>

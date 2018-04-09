@@ -9,11 +9,12 @@ import SearchBar from '../components/SearchBar';
 
 import { searchPhotos } from '../api/models/photos';
 
-const Search = ({ images }) => (
+const Search = ({ images = [] }) => (
   <Layout>
     <div>
+      <h1>Search Results</h1>
       <SearchBar />
-      { images.length === 0 ? 'No images to show' : <ImageList images={images} /> }
+      { images.length === 0 ? 'No images to show, try a different search term' : <ImageList images={images} /> }
     </div>
   </Layout>
 );
